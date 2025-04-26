@@ -1,0 +1,306 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+    /* background-color: #FAF1E6; */
+    /* color: white; */
+}
+
+button{
+    cursor: pointer;
+}
+
+
+
+
+.input-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+}
+
+.input-box input {
+    width: 80%;
+    max-width: 1000px;
+    height: 200px;
+    font-size: 160px;
+    text-transform: uppercase;
+    padding: 15px;
+    border-radius: 15px;
+    border: none;
+    border: 1px solid #888;
+}
+
+
+.number-list{
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: scroll;
+}
+
+.number-list .item:first-child{
+    background-color: #FED2E2;
+}
+
+.number-list .item{
+    display: flex;
+    justify-content: space-between;
+    width: 50%;
+    max-width: 1000px;
+    /* height: 45px; */
+    font-size: 32px;
+    border-bottom: 1px dotted #888 ;
+    border-radius: 15px;
+    padding: 10px;
+    cursor: pointer;
+    /* transition: 0.1s all linear; */
+}
+
+
+.number-list .item.kamyonet{
+    color: #BE3D2A;
+}
+
+.number-list .item:hover{
+    background-color: #FEBA17;
+    color: white;
+}
+
+
+.pop-box.activated{
+    display: block;
+}
+
+.pop-box{
+    display: none;
+    background-color: rgba(111, 130, 106,0.9);
+    
+    position: absolute;
+    content: "";
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+
+.pop-box .show-box{
+    position: relative;
+    content: "";
+    width: 80%;
+    /* height: 80%; */
+    background-color: white;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border-radius: 15px;
+    padding: 50px;
+}
+
+
+.pop-box .show-box .message-box{
+    text-align: center;
+}
+
+
+.pop-box .show-box .message-box h1{
+    font-size: 102px;
+    margin-bottom: 10px;
+    letter-spacing: 1.5px;
+}
+
+.pop-box .show-box .message-box h2{
+    font-size: 25px;
+    font-weight: 400;
+    margin-bottom: 7px;
+}
+
+.pop-box .show-box .message-box p {
+    color: red;
+    font-size: 22px;
+}
+
+
+.pop-box .show-box .message-box input{
+    /* margin: 55px; */
+    width: 500px;
+    /* height: 190px; */
+    font-size: 200px;
+    font-weight: 500;
+    padding: 0px;
+    text-align: center;
+    border-radius: 15px;
+    border: none;
+    /* border: 1px solid #888; */
+    border: none;
+    letter-spacing: 1px;
+    appearance: none;
+}
+
+
+
+.pop-box .show-box .button-box{
+    text-align: center;
+}
+
+.pop-box .show-box .button-box button{
+    padding: 9px 17px;
+    font-size: 20px;
+    margin-right: 60px;
+    border-radius: 10px;
+    border: none;
+    transition: 0.2s all linear;
+}
+
+
+.pop-box .show-box .button-box button.exit{
+    border: 2px solid rgb(80, 176, 51);
+    color: rgb(80, 176, 51);
+    background-color: white;
+}
+.pop-box .show-box .button-box button.veresiye{
+    border: 2px solid rgb(236, 98, 42);
+    color: rgb(236, 98, 42);
+    background-color: white;
+
+}
+.pop-box .show-box .button-box button.delete{
+    border: 2px solid rgb(187, 39, 26);
+    color: rgb(187, 39, 26);
+    background-color: white;
+}
+.pop-box .show-box .button-box button.close{
+    border: 2px solid #F5C45E;
+    color: #F5C45E;
+    background-color: white;
+}
+.pop-box .show-box .button-box button.exit:hover{
+    background-color: rgb(80, 176, 51);
+    color: white;
+}
+.pop-box .show-box .button-box button.veresiye:hover{
+    background-color: rgb(236, 98, 42);
+    color: white;
+}
+.pop-box .show-box .button-box button.delete:hover{
+    background-color: rgb(187, 39, 26);
+    color: white;
+}
+.pop-box .show-box .button-box button.close:hover{
+    background-color: #FFD63A;
+    color: white;
+}
+
+.pop-box .show-box .totalexit{
+    padding: 9px 17px;
+    font-size: 20px;
+    margin: 30px;
+    border-radius: 10px;
+    border: none;
+    background-color: white;
+    color: red;
+    border: 2px solid red;
+    transition: 0.2s all linear;
+}
+
+.pop-box .show-box .totalexit:hover{
+    background-color: red;
+    color: white;
+}
+
+
+/*? CHECK STYLE  */
+
+
+.check-box.activated{
+    display: block;
+}
+
+.check-box{
+    display: none;
+    background-color: rgba(191, 146, 100,0.8);
+    
+    position: absolute;
+    content: "";
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+
+.check-box .box{
+    width: 40%;
+    height: 30%;
+    background-color: white;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border-radius: 15px;
+    padding: 50px;
+}
+
+
+
+.check-box .box p{
+    font-size: 24px;
+}
+
+.check-box .box .button-group{
+    margin-top: 40px;
+}
+.check-box .box .button-group button{
+    padding: 9px 17px;
+    font-size: 18px;
+    border-radius: 10px;
+    border: none;
+    margin-right: 30px;
+}
+
+.check-box .box .button-group button.ok{
+    background-color: #67AE6E;
+    color: white;
+}
+.check-box .box .button-group button.cancel{
+    background-color: #FF0B55;
+    color: white;
+}
+
+/* 
+.box {
+
+    width: 101.6mm;
+    height: 50.8mm;
+    border: 1px solid red;
+    transform: rotate(90deg);
+    transform-origin: bottom left;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    display: none;
+}
+
+.box .baslik{
+    font-size: 24px;
+}
+
+.box .plaka{
+    margin-top: 0px;
+    font-size: 46px;
+    letter-spacing: 2px;
+}
+
+.box .saat{
+    font-size: 18px;
+    margin-top: 5px;
+}
+
+.box .saat .date{
+    font-weight: bold;
+} */

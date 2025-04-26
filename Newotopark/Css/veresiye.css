@@ -1,0 +1,92 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+    /* background-color: black;
+    color: white; */
+}
+
+button{
+    cursor: pointer;
+}
+
+
+
+.input-box {
+
+    margin: 50px 250px;
+}
+
+
+.input-box input {
+    width: 550px;
+    height: 80px;
+    font-size: 60px;
+    text-transform: uppercase;
+    padding: 10px;
+    border: none;
+    border: 1px solid #888;
+    border-radius: 10px;
+}
+
+.veresiye-list {
+    width: 80%;
+    margin: 0 auto;
+    padding: 15px;
+}
+
+.veresiye-list .item {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 30px;
+    margin-bottom: 15px;
+    border: 1px solid rgb(80, 176, 51);
+    border-radius: 15px;
+    height: 80px;
+}
+
+.veresiye-list .item:hover{
+    background-color: #B5FCCD;
+}
+
+
+
+.veresiye-list .item p.plaka{
+    width: 250px;
+}
+.veresiye-list .item p.date{
+    /* text-align: center; */
+    width: 300px;
+}
+.veresiye-list .item p.price{
+    /* text-align: center; */
+    width: 150px;
+}
+.veresiye-list .item .button-group{
+    display: flex;
+    align-items: center;
+}
+
+.veresiye-list .item .button-group button {
+    font-size: 22px;
+    margin-right: 10px;
+    padding: 5px 12px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+
+}
+
+
+.veresiye-list .item .button-group button.pay{
+    color: rgb(80, 176, 51);
+    background-color: white;
+    border: 1px solid rgb(80, 176, 51);
+}
+
+.veresiye-list .item .button-group button:hover{
+    background-color: rgb(80, 176, 51);
+    color: white;
+}

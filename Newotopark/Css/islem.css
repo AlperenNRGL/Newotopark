@@ -1,0 +1,81 @@
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+    /* background-color: #FAF1E6; */
+    /* color: white; */
+}
+
+
+
+
+.islem-list{
+    width: 70%;
+    margin: 100px auto;
+}
+
+
+.islem-list .item{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 35px;
+    font-weight: 500;
+    padding: 0px 55px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    height: 70px;
+    /* border: 1px solid #222222; */
+    cursor: pointer;
+}
+.islem-list .info{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 25px;
+    font-weight: 300;
+    padding: 0px 25px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    height: 70px;
+    /* border: 1px solid #222222; */
+    cursor: pointer;
+}
+
+.islem-list .info span{
+    padding: 10px 13px;
+    border-radius: 10px;
+}
+
+
+
+.islem-list .giris{
+    color: white;
+    background-color: #67AE6E
+}
+.islem-list .cıkıs{
+    background-color: #FF6363;
+    color: white;
+}
+.islem-list .veresiye{
+    color: white;
+    background-color: #FEBA17;
+}
+.islem-list .totalcıkıs{
+    color: white;
+    background-color: #FE7743;
+}
+.islem-list .delete{
+    color: white;
+    background-color: #8E1616;
+}
+
+.islem-list .item:hover{
+    background-color: white;
+    color:#3A59D1 ;
+    border: 2px solid #3A59D1;
+}
+
+

@@ -1,0 +1,34 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.box{
+    width: 50.1mm;
+    height: 101.1mm;
+    /* border: 1px solid red; */
+    writing-mode: vertical-lr;
+    text-align: center;
+}
+
+.box h1{
+    font-size: 32px;
+    letter-spacing: 2px;
+}
+
+.box .plaka{
+    margin-right: 10px;
+    font-size: 32px;
+    letter-spacing: 2px;
+}
+
+.box .date{
+    margin-left: 15px;
+    margin-right: 10px;
+    font-size: 20px;
+}
+
+.box .date .time{
+    font-weight: bold;
+}

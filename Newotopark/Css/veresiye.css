@@ -90,3 +90,22 @@ button{
     background-color: rgb(80, 176, 51);
     color: white;
 }
+
+.veresiye-list .item .button-group button.delete{
+    color: #C5172E;
+    background-color: white;
+    border: 1px solid #C5172E;
+}
+
+.veresiye-list .item .button-group button.delete:hover{
+    background-color: #C5172E;
+    color: white;
+}
+
+
+.input-box .veresiye-toplam{
+    width: 50px;
+    margin-left: 100px;
+    font-size: 62px;
+    opacity: 0;
+}

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 
     <head>
         <meta charset="UTF-8">
@@ -16,22 +16,28 @@
     </head>
 
     <body>
+        <a href="../index.html">Geri Dön</a>
 
         <div class="box">
             <canvas id="myChart"></canvas>
+        </div>
+        <div class="data-equlizer">
+            <button onclick="dataEsitle()">
+                Data Eşitle
+            </button>
         </div>
 
 
 
         <script>
 
-            const data = JSON.parse(localStorage.getItem("islemler"));
+            const data = JSON.parse(localStorage.getItem("islemler-arsiv"));
             var priceData = {};
 
 
             for (let i = 0; i < data.length; i++) {
                 priceData[new Date(data[i].date).getDate()] = 0;
-                
+
 
             }
 
@@ -39,10 +45,26 @@
             for (let i = 0; i < data.length; i++) {
                 if (data[i].islem == "veresiye" || data[i].islem == "cıkıs") {
                     priceData[new Date(data[i].date).getDate()] += parseInt(data[i].price)
+
+                } else if (data[i].islem == "veresiye-sil") {
+                    priceData[new Date(data[i].date).getDate()] -= parseInt(data[i].price)
                 }
             }
-            console.log(priceData);
 
+            function dataEsitle(){
+                const islemlerdata = JSON.parse(localStorage.getItem("islemler"));
+                var islemler_arsiv_data = JSON.parse(localStorage.getItem("islemler-arsiv"));
+
+                for (let i = 0; i < islemlerdata.length; i++) {
+                    islemler_arsiv_data.push(islemlerdata[i]);
+                    
+                }
+
+                localStorage.setItem("islemler-arsiv", JSON.stringify(islemler_arsiv_data));
+                localStorage.setItem("islemler", JSON.stringify([]));
+                
+                location.reload();
+            }
 
 
 
@@ -69,7 +91,9 @@
                 options: {
                     scales: {
                         y: {
-                            beginAtZero: true
+                            beginAtZero: true,
+                            display : false,
+
                         }
                     }
                 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 
     <head>
         <meta charset="UTF-8">
@@ -16,7 +16,7 @@
             rel="stylesheet">
     </head>
 
-<!-- 
+    <!-- 
     <div class="box" id="fis">
         <p class="baslik">NUROĞLU KATLI OTOPARK</p>
         <p class="plaka" id="plaka">34 HCA 752</p>
@@ -24,7 +24,7 @@
     </div> -->
 
 
-    <body>
+    <body  onload="loaded()">
         <nav class="fis-out">
             <div class="baslik">
                 <!-- <img src="trabzonspor7976.jpg" width="105px" alt="" srcset=""> -->
@@ -41,15 +41,15 @@
                     </div>
                 </a>
 
-                <a href="HTML/islem.html">
-                    <div class="item">
-                        İşlem Geçmişi
-                    </div>
-                </a>
-
                 <div class="flex visible">
+                    <a href="HTML/islem.html">
+                        <div class="item">
+                            İşlem Geçmişi
+                        </div>
+                    </a>
 
-                    
+
+
                     <a href="HTML/liste.html" target="_blank">
                         <div class="item" id="liste_count">
 
@@ -104,7 +104,7 @@
                     <button class="exit" id="exit-car" onclick="exitcar('cıkıs')">Çıkış Yap</button>
                     <button class="veresiye" onclick="veresiyecar()">Veresiye Çık</button>
                     <button class="delete" onclick="deleteCar()">Giriş Kaydını Sil</button>
-                    <!-- <button class="close" onclick="fisyazdir()">Fiş Yazdır</button> -->
+                    <button class="fis" onclick="fisyazdir()">Fiş Yazdır</button>
                     <button class="close" onclick="closemodal()">Kapat</button>
                 </div>
 
@@ -125,7 +125,14 @@
             </div>
         </div>
 
-     
+
+        <div id="nofication" class="nofication-box">
+            <!-- <div class="giris">
+                61 VV 4466
+            </div> -->
+        </div>
+
+
         <script src="JS/index.js"></script>
     </body>
 

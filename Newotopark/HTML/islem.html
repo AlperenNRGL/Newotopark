@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 
     <head>
         <meta charset="UTF-8">
@@ -38,15 +38,15 @@
                     </div>
                 </a>
 
-                <a href="islem.html">
-                    <div class="item">
-                        İşlem Geçmişi
-                    </div>
-                </a>
-
                 <div class="flex visible">
+                    <a href="islem.html">
+                        <div class="item">
+                            İşlem Geçmişi
+                        </div>
+                    </a>
 
-                    
+
+
                     <a href="liste.html" target="_blank">
                         <div class="item" id="liste_count">
 
@@ -60,17 +60,31 @@
 
         </nav>
 
-
-
-        <div class="islem-list" id="islem-list">
-
+        <div class="islem-list">
             <div class="info">
                 <span class="giris">Giriş</span>
                 <span class="cıkıs">Çıkış</span>
                 <span class="veresiye">Veresiye</span>
+                <span class="veresiye-sil">Veresiye Silme</span>
+            </div>
+
+            <div class="info">
+                <span class="veresiye-ode">Veresiye Ödeme</span>
                 <span class="delete">Giriş Kaydı Silme</span>
                 <span class="totalcıkıs">Toplam Ücret Çıkış</span>
             </div>
+
+            <div class="request flex">
+                <input type="text" id="plaka" >
+                <button onclick="sorgula()" >Sorgula </button>
+            </div>
+
+        </div>
+
+
+        <div class="islem-list" id="islem-list">
+
+
 
             <!-- <div class="item giris">
                 <p>34 HCA 752</p>
@@ -111,20 +125,22 @@
                     hour: newDate.getHours(),
                     minute: newDate.getMinutes(),
                 }
-                return `${dateFormat.hour}:${minute}  ${dateFormat.day}/${dateFormat.month}/${dateFormat.year}`
+                return `${dateFormat.hour}:${minute} &nbsp ${dateFormat.day}/${dateFormat.month}/${dateFormat.year}`
             }
 
 
             const data = JSON.parse(localStorage.getItem("islemler"));
+            showData(data)
 
+            function showData(data) {
+                document.getElementById("islem-list").innerHTML = "";
+                for (let i = data.length - 1; i >= 0; i--) {
+                    if (data[i].price == undefined) {
+                        data[i].price = "- -"
+                    }
 
-            for (let i = data.length - 1; i >= 0; i--) {
-                if (data[i].price == undefined) {
-                    data[i].price = "- -"
-                }
-
-                document.getElementById("islem-list").innerHTML +=
-                    `
+                    document.getElementById("islem-list").innerHTML +=
+                        `
                 <div class="item ${data[i].islem}">
                     <p>${data[i].plaka}</p>
                     <p>${getDate(data[i].date)}</p>
@@ -133,12 +149,26 @@
             
             
             `
-
-
-
+                }
             }
 
             document.getElementById("liste_count").innerHTML = JSON.parse(localStorage.getItem("otopark")).length;
+
+
+            function sorgula(e) {
+                const plaka = document.getElementById("plaka").value.toUpperCase();
+                var newData = [];
+
+
+                for (let i = 0 ; i< data.length ; i++) {
+                    if (data[i].plaka.includes(plaka)) {
+                        newData.push(data[i]);
+                    }
+                }
+
+                showData(newData);
+
+            }
 
         </script>
 

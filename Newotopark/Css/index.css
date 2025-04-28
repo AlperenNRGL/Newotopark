@@ -7,7 +7,7 @@
     /* color: white; */
 }
 
-button{
+button {
     cursor: pointer;
 }
 
@@ -34,7 +34,7 @@ button{
 }
 
 
-.number-list{
+.number-list {
     height: 400px;
     display: flex;
     flex-direction: column;
@@ -42,43 +42,55 @@ button{
     overflow: scroll;
 }
 
-.number-list .item:first-child{
-    background-color: #FED2E2;
-}
 
-.number-list .item{
+
+.number-list .item {
     display: flex;
     justify-content: space-between;
     width: 50%;
     max-width: 1000px;
     /* height: 45px; */
     font-size: 32px;
-    border-bottom: 1px dotted #888 ;
+    border-bottom: 1px dotted #888;
     border-radius: 15px;
-    padding: 10px;
+    padding: 10px 40px;
     cursor: pointer;
     /* transition: 0.1s all linear; */
 }
 
+.number-list .item.item-activated {
+    background-color: #FED2E2;
+}
 
-.number-list .item.kamyonet{
+.number-list .findOut {
+    background-color: #ffc107;
+    text-align: right;
+    color: white;
+    padding: 10px 30px;
+    border-radius: 10px;
+    font-size: 22px;
+}
+
+
+
+.number-list .item.kamyonet {
     color: #BE3D2A;
 }
 
-.number-list .item:hover{
+.number-list .item:hover {
     background-color: #FEBA17;
     color: white;
 }
 
 
-.pop-box.activated{
+.pop-box.activated {
     display: block;
 }
 
-.pop-box{
+.pop-box {
     display: none;
-    background-color: rgba(111, 130, 106,0.9);
-    
+    background-color: rgba(111, 130, 106, 0.9);
+    z-index: 2;
     position: absolute;
     content: "";
     top: 0;
@@ -88,32 +100,33 @@ button{
 }
 
 
-.pop-box .show-box{
+.pop-box .show-box {
     position: relative;
     content: "";
-    width: 80%;
+    z-index: 3;
+    width: 90%;
     /* height: 80%; */
     background-color: white;
     top: 50%;
     left: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
     border-radius: 15px;
     padding: 50px;
 }
 
 
-.pop-box .show-box .message-box{
+.pop-box .show-box .message-box {
     text-align: center;
 }
 
 
-.pop-box .show-box .message-box h1{
+.pop-box .show-box .message-box h1 {
     font-size: 102px;
     margin-bottom: 10px;
     letter-spacing: 1.5px;
 }
 
-.pop-box .show-box .message-box h2{
+.pop-box .show-box .message-box h2 {
     font-size: 25px;
     font-weight: 400;
     margin-bottom: 7px;
@@ -121,11 +134,11 @@ button{
 
 .pop-box .show-box .message-box p {
     color: red;
-    font-size: 22px;
+    font-size: 28px;
 }
 
 
-.pop-box .show-box .message-box input{
+.pop-box .show-box .message-box input {
     /* margin: 55px; */
     width: 500px;
     /* height: 190px; */
@@ -143,11 +156,11 @@ button{
 
 
 
-.pop-box .show-box .button-box{
+.pop-box .show-box .button-box {
     text-align: center;
 }
 
-.pop-box .show-box .button-box button{
+.pop-box .show-box .button-box button {
     padding: 9px 17px;
     font-size: 20px;
     margin-right: 60px;
@@ -157,45 +170,63 @@ button{
 }
 
 
-.pop-box .show-box .button-box button.exit{
+.pop-box .show-box .button-box button.exit {
     border: 2px solid rgb(80, 176, 51);
     color: rgb(80, 176, 51);
     background-color: white;
 }
-.pop-box .show-box .button-box button.veresiye{
+
+.pop-box .show-box .button-box button.veresiye {
     border: 2px solid rgb(236, 98, 42);
     color: rgb(236, 98, 42);
     background-color: white;
 
 }
-.pop-box .show-box .button-box button.delete{
+
+.pop-box .show-box .button-box button.delete {
     border: 2px solid rgb(187, 39, 26);
     color: rgb(187, 39, 26);
     background-color: white;
 }
-.pop-box .show-box .button-box button.close{
+
+.pop-box .show-box .button-box button.close {
     border: 2px solid #F5C45E;
     color: #F5C45E;
     background-color: white;
 }
-.pop-box .show-box .button-box button.exit:hover{
+
+.pop-box .show-box .button-box button.fis {
+    border: 2px solid rgb(13, 110, 253);
+    color: rgb(13, 110, 253);
+    background-color: white;
+}
+
+.pop-box .show-box .button-box button.exit:hover {
     background-color: rgb(80, 176, 51);
     color: white;
 }
-.pop-box .show-box .button-box button.veresiye:hover{
+
+.pop-box .show-box .button-box button.veresiye:hover {
     background-color: rgb(236, 98, 42);
     color: white;
 }
-.pop-box .show-box .button-box button.delete:hover{
+
+.pop-box .show-box .button-box button.delete:hover {
     background-color: rgb(187, 39, 26);
     color: white;
 }
-.pop-box .show-box .button-box button.close:hover{
+
+.pop-box .show-box .button-box button.close:hover {
     background-color: #FFD63A;
     color: white;
 }
 
-.pop-box .show-box .totalexit{
+.pop-box .show-box .button-box button.fis:hover {
+    background-color: rgb(13, 110, 253);
+    color: white;
+}
+
+.pop-box .show-box .totalexit {
     padding: 9px 17px;
     font-size: 20px;
     margin: 30px;
@@ -207,7 +238,7 @@ button{
     transition: 0.2s all linear;
 }
 
-.pop-box .show-box .totalexit:hover{
+.pop-box .show-box .totalexit:hover {
     background-color: red;
     color: white;
 }
@@ -216,14 +247,14 @@ button{
 /*? CHECK STYLE  */
 
 
-.check-box.activated{
+.check-box.activated {
     display: block;
 }
 
-.check-box{
+.check-box {
     display: none;
-    background-color: rgba(191, 146, 100,0.8);
-    
+    background-color: rgba(191, 146, 100, 0.8);
+    z-index: 2;
     position: absolute;
     content: "";
     top: 0;
@@ -233,28 +264,29 @@ button{
 }
 
 
-.check-box .box{
+.check-box .box {
     width: 40%;
     height: 30%;
     background-color: white;
     position: absolute;
     top: 30%;
     left: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
     border-radius: 15px;
     padding: 50px;
 }
 
 
 
-.check-box .box p{
+.check-box .box p {
     font-size: 24px;
 }
 
-.check-box .box .button-group{
+.check-box .box .button-group {
     margin-top: 40px;
 }
-.check-box .box .button-group button{
+
+.check-box .box .button-group button {
     padding: 9px 17px;
     font-size: 18px;
     border-radius: 10px;
@@ -262,45 +294,48 @@ button{
     margin-right: 30px;
 }
 
-.check-box .box .button-group button.ok{
+.check-box .box .button-group button.ok {
     background-color: #67AE6E;
     color: white;
 }
-.check-box .box .button-group button.cancel{
+
+.check-box .box .button-group button.cancel {
     background-color: #FF0B55;
     color: white;
 }
 
-/* 
-.box {
+.nofication-box {
+    position: absolute;
+    z-index: 1;
+    content: "";
+    top: 10%;
+    right: 0px;
+    font-size: 28px;
 
-    width: 101.6mm;
-    height: 50.8mm;
-    border: 1px solid red;
-    transform: rotate(90deg);
-    transform-origin: bottom left;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    display: none;
 }
 
-.box .baslik{
-    font-size: 24px;
+.nofication-box div {
+    border-bottom-left-radius: 8px;
+    border-top-left-radius: 8px;
+    padding: 10px 30px;
+    margin-bottom: 10px;
 }
 
-.box .plaka{
-    margin-top: 0px;
-    font-size: 46px;
-    letter-spacing: 2px;
+
+.nofication-box .veresiye {
+    background-color: rgb(255, 243, 205);
+    border: 2px solid rgb(255, 230, 156);
+    color: rgb(102, 77, 3);
 }
 
-.box .saat{
-    font-size: 18px;
-    margin-top: 5px;
+.nofication-box .cıkıs {
+    background-color: rgb(248, 215, 218);
+    border: 2px solid rgb(241, 174, 181);
+    color: rgb(88, 21, 28)
 }
 
-.box .saat .date{
-    font-weight: bold;
-} */
+.nofication-box .giris {
+    background-color: rgb(209, 231, 221);
+    border: 2px solid rgb(163, 207, 187);
+    color: rgb(10, 54, 34);
+}

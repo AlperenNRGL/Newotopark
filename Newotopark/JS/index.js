@@ -2,6 +2,10 @@ checkLS();
 showData();
 
 
+function loaded() {
+    document.getElementById("plaka").focus();
+}
+
 
 document.getElementById("plaka").addEventListener("keyup", (e) => {
 
@@ -13,6 +17,9 @@ function checkLS() {
 
     if (localStorage.getItem("islemler") == null) {
         localStorage.setItem("islemler", JSON.stringify([]))
+    }
+    if (localStorage.getItem("islemler-arsiv") == null) {
+        localStorage.setItem("islemler-arsiv", JSON.stringify([]))
     }
     if (localStorage.getItem("otopark") == null) {
         localStorage.setItem("otopark", JSON.stringify([]))
@@ -58,7 +65,15 @@ function changeInput(e) {
 
 
 
-    } else {
+    } else if (e.key == "ArrowUp") {
+        itemFocus("Up");
+    }
+    else if (e.key == "ArrowDown") {
+        itemFocus("Down");
+    } else if (e.key == "Escape") {
+        closemodal();
+    }
+    else {
         document.getElementById("number-list").innerHTML = "";
         for (let i = data.length - 1; i >= 0; i--) {
             if (data[i].plaka.includes(inputData)) {
@@ -67,10 +82,10 @@ function changeInput(e) {
             }
 
         }
+        itemFocus()
     }
 }
 
-[[{ "plaka": "61 GH 785", "tip": "taksi", "date": 1745182032305 }]]
 
 
 function getData() {
@@ -120,8 +135,56 @@ function getDate(date) {
 
         return `${dateFormat.hour}:${minute}`
     }
-    return `${dateFormat.hour}:${minute}  ${dateFormat.day}/${dateFormat.month}/${dateFormat.year}`
+    return `${dateFormat.hour}:${minute} &nbsp  ${dateFormat.day}/${dateFormat.month}/${dateFormat.year}`
 }
+
+
+function addNofication(data){
+    console.log(data);
+    // islem cıkıs
+    // islem giris
+    // islem veresiye
+    const rnd = Math.random();
+    const element = document.getElementById("nofication");
+    element.innerHTML += `
+        <div class="${data.islem}" id="${rnd}">
+                ${data.plaka}
+            </div>
+        `
+    setTimeout( () => { document.getElementById(rnd).remove() },4000 )
+
+}
+
+
+function itemFocus(style) {
+
+
+    const element = document.getElementById("number-list").getElementsByClassName("item");
+    const elementactivated = document.getElementById("number-list").getElementsByClassName("item-activated")[0];
+    const elementCount = element.length;
+
+
+
+    if (style == "Up") {
+        if (elementactivated.previousSibling) {
+            elementactivated.classList.remove("item-activated")
+            elementactivated.previousSibling.classList.add("item-activated")
+        }
+    } else if (style == "Down") {
+        if (elementactivated.nextSibling) {
+            elementactivated.classList.remove("item-activated")
+            elementactivated.nextSibling.classList.add("item-activated")
+        }
+    } else {
+        if (elementCount > 0) {
+            element[0].classList.add("item-activated");
+        } else {
+            document.getElementById("number-list").innerHTML = `<div class="findOut">Araç Bulunamadı</div></div>`
+        }
+    }
+
+}
+
 
 
 function showData() {
@@ -132,6 +195,7 @@ function showData() {
             `<div class="item ${data[i].tip}" onclick="tıkla('${data[i].plaka}')"><div class="plate">${data[i].plaka}</div><div class="date">${getDate(data[i].date)}</div></div>`
     }
     document.getElementById("liste_count").innerHTML = data.length;
+    itemFocus();
 }
 
 
@@ -159,14 +223,16 @@ function newCar(style) {
     addCore(newData);
 
     closemodal();
-    showData()
+    showData();
+    addNofication(newData);
     document.getElementById("plaka").value = "";
 }
 
 
+var veresiyeToplam = 0;
 function showpopBox(style) {
     if (style != "tıkla") {
-        const element = document.getElementById("number-list").getElementsByClassName("item")[0]
+        const element = document.getElementById("number-list").getElementsByClassName("item-activated")[0];
         element.click();
     }
     const inputData = document.getElementById("plaka").value.toUpperCase()
@@ -192,12 +258,12 @@ function showpopBox(style) {
     document.getElementById("price").value = priceController(day, hour % 24, minute, thisCar.tip);
 
     document.getElementById("price").style.color = "black";
-    if (((minute % 60) < 4) && document.getElementById("price").value < 180) {
+    if (((minute % 60) < 5) && document.getElementById("price").value < 180) {
         document.getElementById("price").style.color = "red";
         // document.getElementById("price").value -= 30; //? Fiyat Düşürme
     }
 
-    var veresiyeToplam = 0;
+    veresiyeToplam = 0;
     const veresiyeData = JSON.parse(localStorage.getItem("veresiye"));
     document.getElementById("veresiye-list").innerHTML = "";
 
@@ -221,6 +287,16 @@ function showpopBox(style) {
 
 }
 
+document.getElementById("price").addEventListener("keyup", (e) => {
+    const newPrice = parseInt(e.target.value);
+    var totalVeresiye = document.getElementById("totalveresiye")
+
+    console.log(totalVeresiye.innerHTML);
+
+    totalVeresiye.innerHTML = veresiyeToplam + newPrice
+})
+
+
 
 function deleteCar() {
     const inputData = document.getElementById("plaka").value.toUpperCase()
@@ -238,7 +314,7 @@ function deleteCar() {
 
     saveData(data);
     closemodal()
-    showData()
+    showData();
     document.getElementById("plaka").value = ""
 }
 
@@ -256,6 +332,28 @@ function totalexitcar(style) {
     localStorage.setItem("veresiye", JSON.stringify(data));
     exitcar("totalcıkıs");
 }
+
+function fisyazdir(){
+
+
+    const inputData = document.getElementById("plaka").value.toUpperCase()
+    data = getData()
+    thisCar = "";
+    for (let i = 0; i < data.length; i++) {
+        if (data[i].plaka == inputData) {
+            thisCar = data[i];
+            id = i;
+            break;
+        }
+    }
+
+
+
+    localStorage.setItem("fis", JSON.stringify(thisCar));
+    closemodal();
+    window.open("HTML/fis.html",'_blank');
+}
+
 
 
 function exitcar(islem) {
@@ -282,12 +380,13 @@ function exitcar(islem) {
         oldData[0]["islem"] = "cıkıs";
         oldData[0]["price"] = document.getElementById("price").value;
         addCore(oldData[0]);
-
+        addNofication(oldData[0]);
     }
 
     saveData(data);
     closemodal()
     showData()
+
     document.getElementById("plaka").value = ""
 }
 
@@ -307,9 +406,8 @@ function veresiyecar() {
 
     data["islem"] = "veresiye";
     addCore(data);
-
-
     exitcar("veresiye");
+    addNofication(data);
 }
 
 

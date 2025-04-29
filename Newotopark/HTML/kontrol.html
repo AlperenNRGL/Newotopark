@@ -31,38 +31,68 @@
 
         <script>
 
-            const data = JSON.parse(localStorage.getItem("islemler-arsiv"));
-            var priceData = {};
 
-
-            for (let i = 0; i < data.length; i++) {
-                priceData[new Date(data[i].date).getDate()] = 0;
-
-
-            }
-
-
-            for (let i = 0; i < data.length; i++) {
-                if (data[i].islem == "veresiye" || data[i].islem == "cıkıs") {
-                    priceData[new Date(data[i].date).getDate()] += parseInt(data[i].price)
-
-                } else if (data[i].islem == "veresiye-sil") {
-                    priceData[new Date(data[i].date).getDate()] -= parseInt(data[i].price)
+            function getDay(day) {
+                switch (day) {
+                    case 0:
+                        return "Pazar";
+                        break;
+                    case 1:
+                        return "Pazartesi";
+                        break;
+                    case 2:
+                        return "Salı";
+                        break;
+                    case 3:
+                        return "Çarşamba";
+                        break;
+                    case 4:
+                        return "Perşembe";
+                        break;
+                    case 5:
+                        return "Cuma";
+                        break;
+                    case 6:
+                        return "Cumartesi";
+                        break;
                 }
             }
 
-            function dataEsitle(){
+            const data = JSON.parse(localStorage.getItem("islemler-arsiv"));
+            var priceData = {};
+            var veresiyeData = {};
+
+
+            for (let i = 0; i < data.length; i++) {
+                priceData[`${new Date(data[i].date).getDate()} ${ getDay(new Date(data[i].date).getDay())}`] = 0;
+                veresiyeData[`${new Date(data[i].date).getDate()} ${ getDay(new Date(data[i].date).getDay())}`] = 0;
+            }
+
+
+            for (let i = 0; i < data.length; i++) {
+                if (data[i].islem == "cıkıs") {
+                    priceData[`${new Date(data[i].date).getDate()} ${ getDay(new Date(data[i].date).getDay())}`] += parseInt(data[i].price)
+                    
+                } else if (data[i].islem == "veresiye-sil") {
+                    priceData[`${new Date(data[i].date).getDate()} ${ getDay(new Date(data[i].date).getDay())}`] -= parseInt(data[i].price)
+                } else if(data[i].islem == "veresiye" ){
+                    priceData[`${new Date(data[i].date).getDate()} ${ getDay(new Date(data[i].date).getDay())}`] += parseInt(data[i].price)
+                    veresiyeData[`${new Date(data[i].date).getDate()} ${ getDay(new Date(data[i].date).getDay())}`] += parseInt(data[i].price)
+                }
+            }
+
+            function dataEsitle() {
                 const islemlerdata = JSON.parse(localStorage.getItem("islemler"));
                 var islemler_arsiv_data = JSON.parse(localStorage.getItem("islemler-arsiv"));
 
                 for (let i = 0; i < islemlerdata.length; i++) {
                     islemler_arsiv_data.push(islemlerdata[i]);
-                    
+
                 }
 
                 localStorage.setItem("islemler-arsiv", JSON.stringify(islemler_arsiv_data));
                 localStorage.setItem("islemler", JSON.stringify([]));
-                
+
                 location.reload();
             }
 
@@ -75,14 +105,20 @@
         <script>
             const ctx = document.getElementById('myChart');
 
+            console.log(priceData);
             new Chart(ctx, {
                 type: 'line',
                 data: {
                     labels: Object.keys(priceData),
 
                     datasets: [{
-                        label: 'İş Oranı',
+                        label: 'Çıkış + Veresiye',
                         data: Object.values(priceData),
+                        borderWidth: 3,
+                        borderColor: '#328E6E',
+                    },{
+                        label: 'Veresiye',
+                        data: Object.values(veresiyeData),
                         borderWidth: 3,
                         borderColor: '#C5172E',
                     }
@@ -92,7 +128,7 @@
                     scales: {
                         y: {
                             beginAtZero: true,
-                            display : false,
+                            display: false,
 
                         }
                     }

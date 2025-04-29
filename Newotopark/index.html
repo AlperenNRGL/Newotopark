@@ -24,7 +24,7 @@
     </div> -->
 
 
-    <body  onload="loaded()">
+    <body onload="loaded()">
         <nav class="fis-out">
             <div class="baslik">
                 <!-- <img src="trabzonspor7976.jpg" width="105px" alt="" srcset=""> -->
@@ -83,8 +83,10 @@
 
             <div class="show-box">
 
+                <input type="text" id="pop-box-input" class="popboxinput">
                 <div class="message-box">
                     <div style="display: flex;justify-content: space-around;align-items: center;">
+
                         <div id="value">
                             <!-- <h1>34 HCA 752</h1>
                             
@@ -100,8 +102,8 @@
                 </div>
 
 
-                <div class="button-box" id="button-box">
-                    <button class="exit" id="exit-car" onclick="exitcar('cıkıs')">Çıkış Yap</button>
+                <div class="button-box" id="buttonbox">
+                    <button class="exit focus" id="exit-car" onclick="exitcar('cıkıs')">Çıkış Yap</button>
                     <button class="veresiye" onclick="veresiyecar()">Veresiye Çık</button>
                     <button class="delete" onclick="deleteCar()">Giriş Kaydını Sil</button>
                     <button class="fis" onclick="fisyazdir()">Fiş Yazdır</button>
@@ -117,10 +119,16 @@
 
         <div class="check-box fis-out" id="checkbox">
             <div class="box">
+                <input type="text" id="checkbox-input" class="checkbox-input">
                 <p>Araç türü otomobil mi? </p>
                 <div class="button-group">
-                    <button class="ok" id="new-car-ok" onclick="newCar('taksi')">Evet</button>
-                    <button class="cancel" onclick="newCar('kamyonet')">Hayır</button>
+                    <button class="ok focus" id="new-car-ok" onclick="newCar('taksi')">Taksi</button>
+                    <button class="cancel" onclick="newCar('kamyonet')">Kamyonet</button>
+                    <!-- </div>
+                <div class="button-group"> -->
+
+                    <button class="ok" id="new-car-ok" onclick="newCarwithFis('taksi')">Fiş Yazdır</button>
+                    <button class="cancel" onclick="newCarwithFis('kamyonet')">Fiş Yazdır</button>
                 </div>
             </div>
         </div>

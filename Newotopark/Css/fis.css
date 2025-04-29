@@ -10,6 +10,7 @@
     /* border: 1px solid red; */
     writing-mode: vertical-lr;
     text-align: center;
+    margin-top: 20px;
 }
 
 .box h1{
@@ -31,4 +32,11 @@
 
 .box .date .time{
     font-weight: bold;
+}
+
+.box input{
+    width: 0;
+    height: 0;
+    border: none;
+    outline: none;
 }

@@ -38,6 +38,9 @@ function showData(data) {
 }
 
 
+function focusinput(){
+    document.getElementById("veresiye-input").focus();
+}
 
 
 
@@ -93,7 +96,6 @@ function veresiyeode(i, style) {
         "price": data[i].price,
         "islem": style,
     }
-    console.log(data2);
     oldData.push(data2);
     localStorage.setItem("islemler", JSON.stringify(oldData));
 

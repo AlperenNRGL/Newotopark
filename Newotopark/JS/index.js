@@ -40,6 +40,7 @@ function changeInput(e) {
 
         if (inputData == "") return;
 
+
         const itemCount = document.getElementById("number-list").getElementsByClassName("item").length;
 
         if (itemCount > 0) {
@@ -47,7 +48,9 @@ function changeInput(e) {
                 document.getElementById("exit-car").click();
             } else {
                 document.getElementById("popbox").classList.add("activated");
+                resetButtons();
                 showpopBox();
+
             }
 
 
@@ -58,6 +61,8 @@ function changeInput(e) {
 
             } else {
                 document.getElementById("checkbox").classList.add("activated");
+                document.getElementById("checkbox-input").focus();
+                resetButtons();
             }
 
         }
@@ -86,6 +91,24 @@ function changeInput(e) {
     }
 }
 
+function resetButtons() {
+    var element = document.getElementById("checkbox").querySelectorAll("button")
+    element.forEach(e => {
+        e.classList.remove("focus");
+    })
+    element[0].classList.add("focus");
+
+
+
+    element = document.getElementById("popbox").querySelector("#buttonbox").querySelectorAll("button")
+    console.log(element);
+    element.forEach(e => {
+        e.classList.remove("focus");
+    })
+    element[0].classList.add("focus");
+
+}
+
 
 
 function getData() {
@@ -100,7 +123,10 @@ function saveData(data) {
 function tıkla(e) {
     document.getElementById("plaka").value = e
     document.getElementById("popbox").classList.add("activated");
+
+    resetButtons();
     showpopBox("tıkla");
+    document.getElementById("pop-box-input").focus();
 
 
 }
@@ -139,7 +165,7 @@ function getDate(date) {
 }
 
 
-function addNofication(data){
+function addNofication(data) {
     console.log(data);
     // islem cıkıs
     // islem giris
@@ -151,7 +177,7 @@ function addNofication(data){
                 ${data.plaka}
             </div>
         `
-    setTimeout( () => { document.getElementById(rnd).remove() },4000 )
+    setTimeout(() => { document.getElementById(rnd).remove() }, 4000)
 
 }
 
@@ -202,10 +228,10 @@ function showData() {
 function addCore(data) {
 
     var oldData = JSON.parse(localStorage.getItem("islemler"));
+    data["date"] = new Date();
     oldData.push(data);
     localStorage.setItem("islemler", JSON.stringify(oldData));
 }
-
 
 
 function newCar(style) {
@@ -215,6 +241,7 @@ function newCar(style) {
         tip: style,
         date: Date.now(),
     }
+    console.log(newData);
 
     oldData.push(newData);
     saveData(oldData);
@@ -226,11 +253,18 @@ function newCar(style) {
     showData();
     addNofication(newData);
     document.getElementById("plaka").value = "";
+    return newData;
 }
 
 
+function newCarwithFis(style) {
+    var data = newCar(style);
+    fisyazdir(data.plaka);
+}
+
 var veresiyeToplam = 0;
 function showpopBox(style) {
+    document.getElementById("pop-box-input").focus();
     if (style != "tıkla") {
         const element = document.getElementById("number-list").getElementsByClassName("item-activated")[0];
         element.click();
@@ -258,7 +292,7 @@ function showpopBox(style) {
     document.getElementById("price").value = priceController(day, hour % 24, minute, thisCar.tip);
 
     document.getElementById("price").style.color = "black";
-    if (((minute % 60) < 5) && document.getElementById("price").value < 180) {
+    if (((minute % 60) < 6 ) && document.getElementById("price").value < 180) {
         document.getElementById("price").style.color = "red";
         // document.getElementById("price").value -= 30; //? Fiyat Düşürme
     }
@@ -270,10 +304,10 @@ function showpopBox(style) {
     for (let i = 0; i < veresiyeData.length; i++) {
         if (veresiyeData[i].plaka == inputData) {
             veresiyeToplam += parseInt(veresiyeData[i].price);
-            document.getElementById("veresiye-list").innerHTML +=
-                `
-                <p>Veresiye Ücreti ${veresiyeData[i].price} ₺ ${getDate(veresiyeData[i].date)}</p>
-            `
+            // document.getElementById("veresiye-list").innerHTML +=
+            //     `
+            //     <p>Veresiye Ücreti ${veresiyeData[i].price} ₺ ${getDate(veresiyeData[i].date)}</p>
+            // `
         }
     }
 
@@ -291,11 +325,57 @@ document.getElementById("price").addEventListener("keyup", (e) => {
     const newPrice = parseInt(e.target.value);
     var totalVeresiye = document.getElementById("totalveresiye")
 
-    console.log(totalVeresiye.innerHTML);
+    if (isNaN(newPrice)) {
+        totalVeresiye.innerHTML = veresiyeToplam
+    } else {
+        totalVeresiye.innerHTML = veresiyeToplam + newPrice
+    }
 
-    totalVeresiye.innerHTML = veresiyeToplam + newPrice
 })
 
+
+
+document.getElementById("checkbox-input").addEventListener("keyup", (e) => {
+    const element = document.getElementById("checkbox");
+    if (e.key == "Enter") {
+        element.querySelector(".focus").click();
+    }
+    else if (e.key == "ArrowRight" && element.querySelector(".focus").nextElementSibling) {
+        var old = element.querySelector(".focus");
+        element.querySelector(".focus").nextElementSibling.classList.add("focus")
+        old.classList.remove("focus");
+    }
+    else if (e.key == "ArrowLeft" && element.querySelector(".focus").previousElementSibling) {
+        var old = element.querySelector(".focus");
+        element.querySelector(".focus").previousElementSibling.classList.add("focus")
+        old.classList.remove("focus");
+    } else if (e.key == "Escape") {
+        closemodal();
+    }
+})
+
+
+document.getElementById("pop-box-input").addEventListener("keyup", (e) => {
+
+
+    const element = document.getElementById("popbox").querySelector("#buttonbox")
+
+    if (e.key == "Enter") {
+        element.querySelector(".focus").click();
+    }
+    else if (e.key == "ArrowRight" && element.querySelector(".focus").nextElementSibling) {
+        var old = element.querySelector(".focus");
+        element.querySelector(".focus").nextElementSibling.classList.add("focus")
+        old.classList.remove("focus");
+    }
+    else if (e.key == "ArrowLeft" && element.querySelector(".focus").previousElementSibling) {
+        var old = element.querySelector(".focus");
+        element.querySelector(".focus").previousElementSibling.classList.add("focus")
+        old.classList.remove("focus");
+    } else if (e.key == "Escape") {
+        closemodal();
+    }
+})
 
 
 function deleteCar() {
@@ -333,10 +413,14 @@ function totalexitcar(style) {
     exitcar("totalcıkıs");
 }
 
-function fisyazdir(){
+function fisyazdir(plaka) {
+    var inputData = ""
+    if (plaka) {
+        inputData = plaka
+    } else {
+        inputData = document.getElementById("plaka").value.toUpperCase()
+    }
 
-
-    const inputData = document.getElementById("plaka").value.toUpperCase()
     data = getData()
     thisCar = "";
     for (let i = 0; i < data.length; i++) {
@@ -351,7 +435,7 @@ function fisyazdir(){
 
     localStorage.setItem("fis", JSON.stringify(thisCar));
     closemodal();
-    window.open("HTML/fis.html",'_blank');
+    window.open("HTML/fis.html", '_blank');
 }
 
 
@@ -435,15 +519,15 @@ function priceController(day, hour, minute, type) {
 
     } else {
         if (day > 0) {
-            price = day * 250;
+            price = day * 280;
         }
         switch (hour) {
             case 0: price += 100; break;
             case 1: price += 140; break;
             case 2: price += 180; break;
             case 3: price += 220; break;
-            case 4: price += 250; break;
-            default: price += 250; break;
+            case 4: price += 260; break;
+            default: price += 280; break;
         }
     }
 

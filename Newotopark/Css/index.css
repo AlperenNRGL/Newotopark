@@ -111,7 +111,8 @@ button {
     left: 50%;
     transform: translate(-50%, -50%);
     border-radius: 15px;
-    padding: 50px;
+    padding: 20px 50px;
+    padding-bottom: 40px;
 }
 
 
@@ -119,9 +120,16 @@ button {
     text-align: center;
 }
 
+.pop-box .show-box .popboxinput{
+    border: none;
+    outline: none;
+    width: 0;
+    height: 0;
+}
+
 
 .pop-box .show-box .message-box h1 {
-    font-size: 102px;
+    font-size: 90px;
     margin-bottom: 10px;
     letter-spacing: 1.5px;
 }
@@ -141,7 +149,7 @@ button {
 .pop-box .show-box .message-box input {
     /* margin: 55px; */
     width: 500px;
-    /* height: 190px; */
+    /* height: 250px; */
     font-size: 200px;
     font-weight: 500;
     padding: 0px;
@@ -151,7 +159,8 @@ button {
     /* border: 1px solid #888; */
     border: none;
     letter-spacing: 1px;
-    appearance: none;
+    /* appearance: none; */
+    outline: none;
 }
 
 
@@ -190,8 +199,8 @@ button {
 }
 
 .pop-box .show-box .button-box button.close {
-    border: 2px solid #F5C45E;
-    color: #F5C45E;
+    border: 2px solid #4E1F00;
+    color: #4E1F00;
     background-color: white;
 }
 
@@ -222,6 +231,31 @@ button {
 }
 
 .pop-box .show-box .button-box button.fis:hover {
+    background-color: rgb(13, 110, 253);
+    color: white;
+}
+
+.pop-box .show-box .button-box button.exit.focus {
+    background-color: rgb(80, 176, 51);
+    color: white;
+}
+
+.pop-box .show-box .button-box button.veresiye.focus {
+    background-color: rgb(236, 98, 42);
+    color: white;
+}
+
+.pop-box .show-box .button-box button.delete.focus {
+    background-color: rgb(187, 39, 26);
+    color: white;
+}
+
+.pop-box .show-box .button-box button.close.focus {
+    background-color: #FFD63A;
+    color: white;
+}
+
+.pop-box .show-box .button-box button.fis.focus {
     background-color: rgb(13, 110, 253);
     color: white;
 }
@@ -266,7 +300,7 @@ button {
 
 .check-box .box {
     width: 40%;
-    height: 30%;
+    /* height: 30%; */
     background-color: white;
     position: absolute;
     top: 30%;
@@ -274,6 +308,13 @@ button {
     transform: translate(-50%, -50%);
     border-radius: 15px;
     padding: 50px;
+}
+
+.check-box .checkbox-input{
+    width: 0;
+    height: 0;
+    outline: none;
+    border: none;
 }
 
 
@@ -289,20 +330,41 @@ button {
 .check-box .box .button-group button {
     padding: 9px 17px;
     font-size: 18px;
+    width: 150px;
     border-radius: 10px;
     border: none;
     margin-right: 30px;
+    margin-bottom: 20px;
 }
 
+
 .check-box .box .button-group button.ok {
+    background-color: white;
+    border: 2px solid #67AE6E;
+    color: #67AE6E;
+}
+
+.check-box .box .button-group button.cancel {
+    background-color: white;
+    border: 2px solid #FF0B55;
+    color: #FF0B55;
+}
+
+.check-box .box .button-group button.ok.focus {
     background-color: #67AE6E;
     color: white;
 }
 
-.check-box .box .button-group button.cancel {
+.check-box .box .button-group button.cancel.focus {
     background-color: #FF0B55;
     color: white;
 }
+
+/* .check-box .box .button-group button.focus {
+    background-color: white;
+    color:#3A59D1 ;
+    border: 2px solid #3A59D1;
+} */
 
 .nofication-box {
     position: absolute;

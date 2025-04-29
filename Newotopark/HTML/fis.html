@@ -21,6 +21,7 @@
     <body>
 
         <div class="box">
+            <input type="text" id="input">
             <p class="date">Giriş Saati : <span class="time" id="time">12:12 12/12/2012</span></p>
             <p class="plaka" id="plaka">34 HCA 752</p>
             <h1>OTOPARK</h1>
@@ -58,7 +59,15 @@
             document.getElementById("plaka").innerHTML = data["plaka"];
             document.getElementById("time").innerHTML = getDate(data["date"]);
             print();
-            close();
+            document.getElementById("input").focus();
+
+            document.getElementById("input").addEventListener("keyup", (e) => {
+                if(e.key == "Escape"){
+                    window.close();
+                }
+            })
+
+
 
         </script>
 

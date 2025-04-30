@@ -21,16 +21,16 @@ body{
     border: none;
     border-radius: 10px;
     background-color: white;
-    color: #FE7743;
-    border: 2px solid #FE7743;
+    color: #626F47;
+    border: 2px solid #626F47;
     cursor: pointer;
     transition: 0.2s all linear;
 }
 
 .yazdır:hover{
-    background-color: #FE7743;
+    background-color: #A4B465;
     color: white;
-    border: 2px solid #FE7743;
+    border: 2px solid #A4B465;
 }
 
 

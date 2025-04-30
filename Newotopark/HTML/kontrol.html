@@ -61,25 +61,47 @@
             const data = JSON.parse(localStorage.getItem("islemler-arsiv"));
             var priceData = {};
             var veresiyeData = {};
+            var onlyPriceData = {};
+
+            var daysData = []
+
+
 
 
             for (let i = 0; i < data.length; i++) {
-                priceData[`${new Date(data[i].date).getDate()} ${ getDay(new Date(data[i].date).getDay())}`] = 0;
-                veresiyeData[`${new Date(data[i].date).getDate()} ${ getDay(new Date(data[i].date).getDay())}`] = 0;
+                priceData[`${new Date(data[i].date).getDate()}`] = 0;
+                veresiyeData[`${new Date(data[i].date).getDate()}`] = 0;
+                onlyPriceData[`${new Date(data[i].date).getDate()}`] = 0;
+
+                if (!daysData.includes(`${new Date(data[i].date).getDate()}`)) {
+                    daysData.push(`${new Date(data[i].date).getDate()}`)
+                }
+
             }
+
+            daysData.sort(function (a, b) { return a - b })
+
+
+
+
 
 
             for (let i = 0; i < data.length; i++) {
                 if (data[i].islem == "cıkıs") {
-                    priceData[`${new Date(data[i].date).getDate()} ${ getDay(new Date(data[i].date).getDay())}`] += parseInt(data[i].price)
-                    
+                    priceData[`${new Date(data[i].date).getDate()}`] += parseInt(data[i].price)
+                    onlyPriceData[`${new Date(data[i].date).getDate()}`] += parseInt(data[i].price)
+
                 } else if (data[i].islem == "veresiye-sil") {
-                    priceData[`${new Date(data[i].date).getDate()} ${ getDay(new Date(data[i].date).getDay())}`] -= parseInt(data[i].price)
-                } else if(data[i].islem == "veresiye" ){
-                    priceData[`${new Date(data[i].date).getDate()} ${ getDay(new Date(data[i].date).getDay())}`] += parseInt(data[i].price)
-                    veresiyeData[`${new Date(data[i].date).getDate()} ${ getDay(new Date(data[i].date).getDay())}`] += parseInt(data[i].price)
+                    priceData[`${new Date(data[i].date).getDate()}`] -= parseInt(data[i].price)
+                } else if (data[i].islem == "veresiye") {
+                    priceData[`${new Date(data[i].date).getDate()}`] += parseInt(data[i].price)
+                    veresiyeData[`${new Date(data[i].date).getDate()}`] += parseInt(data[i].price)
                 }
             }
+
+
+
+
 
             function dataEsitle() {
                 const islemlerdata = JSON.parse(localStorage.getItem("islemler"));
@@ -87,7 +109,6 @@
 
                 for (let i = 0; i < islemlerdata.length; i++) {
                     islemler_arsiv_data.push(islemlerdata[i]);
-
                 }
 
                 localStorage.setItem("islemler-arsiv", JSON.stringify(islemler_arsiv_data));
@@ -105,23 +126,49 @@
         <script>
             const ctx = document.getElementById('myChart');
 
+
+            var order1 = -1;
+            var order2 = -1;
+            var order3 = -1;
+
+            console.log(onlyPriceData);
+            console.log(veresiyeData);
             console.log(priceData);
+
             new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: Object.keys(priceData),
+                    labels: daysData,
 
-                    datasets: [{
-                        label: 'Çıkış + Veresiye',
-                        data: Object.values(priceData),
-                        borderWidth: 3,
-                        borderColor: '#328E6E',
-                    },{
-                        label: 'Veresiye',
-                        data: Object.values(veresiyeData),
-                        borderWidth: 3,
-                        borderColor: '#C5172E',
-                    }
+                    datasets: [
+                        {
+                            label: 'Çıkış',
+                            data: Object.keys(onlyPriceData).map(e => {
+                                order1++;
+                                return onlyPriceData[daysData[order1]];
+                            }),
+                            borderWidth: 3,
+                            tension: 0.2,
+                            borderColor: '#3A59D1',
+                        }, {
+                            label: 'Veresiye',
+                            data: Object.keys(veresiyeData).map(e => {
+                                order2++;
+                                return veresiyeData[daysData[order2]];
+                            }),
+                            borderWidth: 3,
+                            tension: 0.2,
+                            borderColor: '#C5172E',
+                        }, {
+                            label: 'Çıkış + Veresiye',
+                            data: Object.keys(priceData).map(e => {
+                                order3++;
+                                return priceData[daysData[order3]];
+                            }),
+                            tension: 0.2,
+                            borderWidth: 3,
+                            borderColor: '#328E6E',
+                        }
                     ]
                 },
                 options: {
@@ -129,7 +176,6 @@
                         y: {
                             beginAtZero: true,
                             display: false,
-
                         }
                     }
                 }

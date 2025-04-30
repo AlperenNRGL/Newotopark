@@ -56,7 +56,7 @@ document.getElementById("veresiye-input").addEventListener("keyup", (e) => {
 
     document.getElementById("veresiye-list").innerHTML = "";
     for (let i = data.length - 1; i >= 0; i--) {
-        if (data[i].plaka.includes(inputData)) {
+        if (data[i].plaka == inputData ) {
             document.getElementById("veresiye-list").innerHTML +=
                 ` <div class="item" id ='item-${i}' >
                 <p>${data[i].plaka}</p>
@@ -73,6 +73,11 @@ document.getElementById("veresiye-input").addEventListener("keyup", (e) => {
     }
     document.getElementById("toplam").style.opacity = "0"
     if (inputData.length >= 3) veresiyetopla(toplam);
+
+    if (inputData == ""){
+        showData(JSON.parse(localStorage.getItem("veresiye")))
+    } 
+
 }
 )
 

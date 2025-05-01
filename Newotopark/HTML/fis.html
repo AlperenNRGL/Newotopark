@@ -25,7 +25,7 @@
             <p class="date"><span class="time" id="time">12:12 12/12/2012</span></p>
             <p class="plaka" id="plaka">34 HCA 752</p>
             <p class="telephone">0 (462) 321 79 99</p>
-            <p class="telephone">Kemerkaya , Yerlice Sok. 2-10 , 61200</p>
+            <p class="telephone">Kemerkaya Yerlice Sok. 2-10 , 61200</p>
             <h1>NUROĞLU KATLI OTOPARK</h1>
         </div>
 
@@ -59,7 +59,7 @@
             const data = JSON.parse(localStorage.getItem("fis"))
             document.getElementById("plaka").innerHTML = data["plaka"];
             document.getElementById("time").innerHTML = getDate(data["date"]);
-            // print();
+            print();
             document.getElementById("input").focus();
 
             document.getElementById("input").addEventListener("keyup", (e) => {

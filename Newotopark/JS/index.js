@@ -241,7 +241,7 @@ function newCar(style) {
         tip: style,
         date: Date.now(),
     }
-    console.log(newData);
+
 
     oldData.push(newData);
     saveData(oldData);

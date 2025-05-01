@@ -10,23 +10,24 @@
     /* border: 1px solid red; */
     writing-mode: vertical-lr;
     text-align: center;
-    margin-top: 150px;
+    margin-top: 75px;
 }
 
 .box h1{
     font-size: 19px;
-    letter-spacing: 2px;
+    letter-spacing: 3px;
     font-weight: 900;
 }
 
 .box .plaka{
-    margin-right: 10px;
-    font-size: 48px;
-    letter-spacing: 2px;
+    margin-right: 8px;
+    font-size: 58px;
+    letter-spacing: 3px;
+    font-weight: 700;
 }
 
 .box .date{
-    margin-left: px;
+
     margin-right: 2px;
     font-size: 18px;
 }

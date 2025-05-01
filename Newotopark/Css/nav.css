@@ -10,8 +10,7 @@ nav {
     align-items: center;
     justify-content: space-around;
     padding: 60px ;
-
-
+    padding-bottom: 30px;
 }
 
 nav a {

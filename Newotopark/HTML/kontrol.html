@@ -17,9 +17,18 @@
 
     <body>
         <a href="../index.html">Geri Dön</a>
-
-        <div class="box">
+        <div class="box" style="margin: 50px auto;">
             <canvas id="myChart"></canvas>
+        </div>
+
+        <div class="flex">
+
+            <div class="box">
+                <canvas id="myChart2"></canvas>
+            </div>
+            <div class="box">
+                <canvas id="myChart3"></canvas>
+            </div>
         </div>
         <div class="data-equlizer">
             <button onclick="dataEsitle()">
@@ -30,6 +39,8 @@
 
 
         <script>
+
+
 
 
             function getDay(day) {
@@ -58,14 +69,40 @@
                 }
             }
 
+
+
+            function gunsil(day) {
+
+                var islemdata = JSON.parse(localStorage.getItem("islemler-arsiv"));
+
+
+                for (let i = 0; i < islemdata.length;) {
+
+                    if (new Date(islemdata[i].date).getDate() == day) {
+                        console.warn("Silindi");
+                        islemdata.splice(i, 1);
+                    } else {
+                        i++
+                    }
+
+                }
+                localStorage.setItem("islemler-arsiv", JSON.stringify(islemdata))
+                location.reload();
+            }
+
+
+
+
+
             const data = JSON.parse(localStorage.getItem("islemler-arsiv"));
             var priceData = {};
             var veresiyeData = {};
             var onlyPriceData = {};
 
             var daysData = []
+            var daysDatawithDay = []
 
-
+            var sundayTotal = 0;
 
 
             for (let i = 0; i < data.length; i++) {
@@ -73,34 +110,58 @@
                 veresiyeData[`${new Date(data[i].date).getDate()}`] = 0;
                 onlyPriceData[`${new Date(data[i].date).getDate()}`] = 0;
 
-                if (!daysData.includes(`${new Date(data[i].date).getDate()}`)) {
-                    daysData.push(`${new Date(data[i].date).getDate()}`)
-                }
 
+                if (!daysData.includes(`${new Date(data[i].date).getDate()}`)) {
+                    if (new Date(data[i].date).getDay() == 0) {
+                        sundayTotal++;
+                    }
+                    // console.log(new Date(data[i].date).getDate());
+                    daysData.push(`${new Date(data[i].date).getDate()}`)
+                    daysDatawithDay[new Date(data[i].date).getDate()] = `${new Date(data[i].date).getDate()} ${getDay(new Date(data[i].date).getDay())}`
+                }
             }
 
             daysData.sort(function (a, b) { return a - b })
 
-
-
-
+            var girisClocks = {}
+            var cıkısClocks = {}
+            for (let i = 8; i < 21; i++) {
+                girisClocks[i] = 0;
+                cıkısClocks[i] = 0;
+            }
 
 
             for (let i = 0; i < data.length; i++) {
                 if (data[i].islem == "cıkıs") {
                     priceData[`${new Date(data[i].date).getDate()}`] += parseInt(data[i].price)
                     onlyPriceData[`${new Date(data[i].date).getDate()}`] += parseInt(data[i].price)
+                    cıkısClocks[new Date(data[i].date).getHours()]++
+
+                    // if(new Date(data[i].date).getDate() == 2 && new Date(data[i].date).getHours() == 8){
+                    //     console.log(new Date(data[i].date).getHours());
+                    // }
 
                 } else if (data[i].islem == "veresiye-sil") {
                     priceData[`${new Date(data[i].date).getDate()}`] -= parseInt(data[i].price)
                 } else if (data[i].islem == "veresiye") {
+                    // if(new Date(data[i].date).getDate() == 27){
+                    //     console.log(data[i]);
+                    // }
+                    if (parseInt(data[i].price) > 500) {
+                        continue;
+                    }
                     priceData[`${new Date(data[i].date).getDate()}`] += parseInt(data[i].price)
                     veresiyeData[`${new Date(data[i].date).getDate()}`] += parseInt(data[i].price)
+                } else if (data[i].islem == "giris") {
+                    girisClocks[new Date(data[i].date).getHours()]++
                 }
             }
 
 
-
+            for (let i = 8; i < 21; i++) {
+                girisClocks[i] = girisClocks[i] / (daysData.length - sundayTotal);
+                cıkısClocks[i] = cıkısClocks[i] / (daysData.length - sundayTotal);
+            }
 
 
             function dataEsitle() {
@@ -131,14 +192,13 @@
             var order2 = -1;
             var order3 = -1;
 
-            console.log(onlyPriceData);
-            console.log(veresiyeData);
-            console.log(priceData);
 
             new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: daysData,
+                    labels: daysData.map(e => {
+                        return daysDatawithDay[e];
+                    }),
 
                     datasets: [
                         {
@@ -148,7 +208,7 @@
                                 return onlyPriceData[daysData[order1]];
                             }),
                             borderWidth: 3,
-                            tension: 0.2,
+                            tension: 0.1,
                             borderColor: '#3A59D1',
                         }, {
                             label: 'Veresiye',
@@ -177,9 +237,117 @@
                             beginAtZero: true,
                             display: false,
                         }
+                    },
+
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        title: {
+                            display: true,
+                            text: 'Otopark İş Pusulası'
+                        }
                     }
                 }
             });
+
+
+
+
+            const ctx2 = document.getElementById('myChart2');
+            new Chart(ctx2, {
+                type: 'polarArea',
+                data: {
+                    labels: Object.keys(girisClocks),
+
+                    datasets: [
+                        {
+                            label: ' Giriş ',
+                            data: Object.values(girisClocks),
+                            borderWidth: 3,
+                            // tension: 0.2,
+                            // borderColor: '#3A59D1',
+                            backgroundColor: [
+                                "rgba(255, 144, 187,0.6)",
+                                "rgba(21, 94, 149,0.6)",
+                                "rgba(155, 208, 245,0.6)",
+                                "rgb(221, 235, 157,0.6)",
+                                "rgba(215, 108, 130,0.6)",
+                                "rgba(243, 198, 35,0.6)",
+                                "rgba(254, 79, 45,0.6)",
+                                "rgba(122, 226, 207,0.6)",
+                                "rgba(198, 142, 253,0.6)",
+                                "rgba(117, 78, 26,0.6)",
+                                "rgba(255, 167, 37,0.6)",
+                                "rgba(181, 168, 213,0.6)",
+                                "rgba(235, 90, 60,0.6)",
+                                "rgba(21, 94, 149,0.6)",
+                            ]
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        title: {
+                            display: true,
+                            text: 'Giriş Ortalama'
+                        }
+                    }
+                },
+            });
+
+
+            const ctx3 = document.getElementById('myChart3');
+            new Chart(ctx3, {
+                type: 'polarArea',
+                data: {
+                    labels: Object.keys(cıkısClocks),
+
+                    datasets: [
+                        {
+                            label: ' Çıkış ',
+                            data: Object.values(cıkısClocks),
+                            borderWidth: 3,
+                            // tension: 0.2,
+                            // borderColor: '#3A59D1',
+                            backgroundColor: [
+                                "rgba(243, 198, 35,0.6)",
+                                "rgba(254, 79, 45,0.6)",
+                                "rgba(255, 144, 187,0.6)",
+                                "rgba(122, 226, 207,0.6)",
+                                "rgba(21, 94, 149,0.6)",
+                                "rgba(198, 142, 253,0.6)",
+                                "rgba(255, 167, 37,0.6)",
+                                "rgba(155, 208, 245,0.6)",
+                                "rgba(117, 78, 26,0.6)",
+                                "rgba(181, 168, 213,0.6)",
+                                "rgba(215, 108, 130,0.6)",
+                                "rgb(221, 235, 157,0.6)",
+                                "rgba(21, 94, 149,0.6)",
+                                "rgba(235, 90, 60,0.6)",
+                            ]
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        title: {
+                            display: true,
+                            text: 'Çıkış Ortalama'
+                        }
+                    }
+                },
+            });
+
         </script>
 
     </body>

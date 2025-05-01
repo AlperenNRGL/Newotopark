@@ -4,10 +4,15 @@
     box-sizing: border-box;
 }
 
+.flex{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 .box{
-    margin: 50px;
-    width: 70vw;
+    margin: 50px 20px;
+    width: 80vw;
     /* height: 800px; */
 }
 

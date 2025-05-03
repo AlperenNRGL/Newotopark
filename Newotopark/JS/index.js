@@ -258,6 +258,10 @@ function dataEsitle() {
     localStorage.setItem("islemler-arsiv", JSON.stringify(islemler_arsiv_data));
     localStorage.setItem("islemler", JSON.stringify([]));
 
+    var data = JSON.parse(localStorage.getItem("data"));
+    data[0]["count"]  == 0 ;
+    localStorage.setItem("data",JSON.stringify(data));
+
 }
 
 

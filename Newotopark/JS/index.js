@@ -241,9 +241,11 @@ function addCore(data) {
 function addStep(){
     var data = JSON.parse(localStorage.getItem("data"));
     data[0]["count"] ++ ;
-    if(data[0]["count"] > 400) dataEsitle();
-    
-    localStorage.setItem("data",JSON.stringify(data));
+    if(data[0]["count"] > 400) {
+        dataEsitle();
+    } else{
+        localStorage.setItem("data",JSON.stringify(data));
+    }
 }
 
 

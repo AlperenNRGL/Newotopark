@@ -27,6 +27,9 @@ function checkLS() {
     if (localStorage.getItem("veresiye") == null) {
         localStorage.setItem("veresiye", JSON.stringify([]))
     }
+    if (localStorage.getItem("data") == null) {
+        localStorage.setItem("data", JSON.stringify([{"count" : 0}]))
+    }
 }
 
 
@@ -231,6 +234,30 @@ function addCore(data) {
     data["date"] = new Date();
     oldData.push(data);
     localStorage.setItem("islemler", JSON.stringify(oldData));
+    addStep();
+}
+
+
+function addStep(){
+    var data = JSON.parse(localStorage.getItem("data"));
+    data[0]["count"] ++ ;
+    if(data[0]["count"] > 400) dataEsitle();
+    
+    localStorage.setItem("data",JSON.stringify(data));
+}
+
+
+function dataEsitle() {
+    const islemlerdata = JSON.parse(localStorage.getItem("islemler"));
+    var islemler_arsiv_data = JSON.parse(localStorage.getItem("islemler-arsiv"));
+
+    for (let i = 0; i < islemlerdata.length; i++) {
+        islemler_arsiv_data.push(islemlerdata[i]);
+    }
+
+    localStorage.setItem("islemler-arsiv", JSON.stringify(islemler_arsiv_data));
+    localStorage.setItem("islemler", JSON.stringify([]));
+
 }
 
 

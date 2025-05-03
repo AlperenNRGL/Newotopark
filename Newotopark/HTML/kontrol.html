@@ -68,6 +68,46 @@
                         break;
                 }
             }
+            function getMonth(Month) {
+                switch (Month) {
+                    case 0:
+                        return "Ocak";
+                        break;
+                    case 1:
+                        return "Şubat";
+                        break;
+                    case 2:
+                        return "Mart";
+                        break;
+                    case 3:
+                        return "Nisan";
+                        break;
+                    case 4:
+                        return "Mayıs";
+                        break;
+                    case 5:
+                        return "Haziran";
+                        break;
+                    case 6:
+                        return "Temmuz";
+                        break;
+                    case 7:
+                        return "Ağustos";
+                        break;
+                    case 8:
+                        return "Eylül";
+                        break;
+                    case 9:
+                        return "Ekim";
+                        break;
+                    case 10:
+                        return "Kasım";
+                        break;
+                    case 11:
+                        return "Aralık";
+                        break;
+                }
+            }
 
 
 
@@ -100,6 +140,7 @@
             var onlyPriceData = {};
 
             var daysData = []
+            var daysDatamiliseconds = []
             var daysDatawithDay = []
 
             var sundayTotal = 0;
@@ -117,10 +158,13 @@
                     }
                     // console.log(new Date(data[i].date).getDate());
                     daysData.push(`${new Date(data[i].date).getDate()}`)
-                    daysDatawithDay[new Date(data[i].date).getDate()] = `${new Date(data[i].date).getDate()} ${getDay(new Date(data[i].date).getDay())}`
+                    daysDatamiliseconds.push(new Date(data[i].date))
+                    daysDatawithDay[new Date(data[i].date).getDate()] = `${new Date(data[i].date).getDate()} ${getDay(new Date(data[i].date).getDay())} ${getMonth(new Date(data[i].date).getMonth())}`
                 }
             }
 
+
+            daysDatamiliseconds.sort(function (a, b) { return a - b })
             daysData.sort(function (a, b) { return a - b })
 
             var girisClocks = {}
@@ -129,6 +173,12 @@
                 girisClocks[i] = 0;
                 cıkısClocks[i] = 0;
             }
+
+
+            // for (let i = 0; i < daysDatamiliseconds.length; i++) {
+            //     console.log(daysDatamiliseconds[i].getDate());
+
+            // }
 
 
             for (let i = 0; i < data.length; i++) {
@@ -159,8 +209,8 @@
 
 
             for (let i = 8; i < 21; i++) {
-                girisClocks[i] = girisClocks[i] / (daysData.length - sundayTotal);
-                cıkısClocks[i] = cıkısClocks[i] / (daysData.length - sundayTotal);
+                girisClocks[i] = Math.round(girisClocks[i] / (daysData.length - sundayTotal));
+                cıkısClocks[i] = Math.round(cıkısClocks[i] / (daysData.length - sundayTotal));
             }
 
 
@@ -196,8 +246,8 @@
             new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: daysData.map(e => {
-                        return daysDatawithDay[e];
+                    labels: daysDatamiliseconds.map(e => {
+                        return daysDatawithDay[e.getDate()];
                     }),
 
                     datasets: [
@@ -205,7 +255,7 @@
                             label: 'Çıkış',
                             data: Object.keys(onlyPriceData).map(e => {
                                 order1++;
-                                return onlyPriceData[daysData[order1]];
+                                return onlyPriceData[daysDatamiliseconds[order1].getDate()];
                             }),
                             borderWidth: 3,
                             tension: 0.1,
@@ -214,7 +264,7 @@
                             label: 'Veresiye',
                             data: Object.keys(veresiyeData).map(e => {
                                 order2++;
-                                return veresiyeData[daysData[order2]];
+                                return veresiyeData[daysDatamiliseconds[order2].getDate()];
                             }),
                             borderWidth: 3,
                             tension: 0.2,
@@ -223,7 +273,7 @@
                             label: 'Çıkış + Veresiye',
                             data: Object.keys(priceData).map(e => {
                                 order3++;
-                                return priceData[daysData[order3]];
+                                return priceData[daysDatamiliseconds[order3].getDate()];
                             }),
                             tension: 0.2,
                             borderWidth: 3,
@@ -251,9 +301,6 @@
                     }
                 }
             });
-
-
-
 
             const ctx2 = document.getElementById('myChart2');
             new Chart(ctx2, {
@@ -295,12 +342,11 @@
                         },
                         title: {
                             display: true,
-                            text: 'Giriş Ortalama'
+                            text: 'Giriş Saat Ortalama'
                         }
                     }
                 },
             });
-
 
             const ctx3 = document.getElementById('myChart3');
             new Chart(ctx3, {
@@ -342,7 +388,7 @@
                         },
                         title: {
                             display: true,
-                            text: 'Çıkış Ortalama'
+                            text: 'Çıkış Saat Ortalama'
                         }
                     }
                 },

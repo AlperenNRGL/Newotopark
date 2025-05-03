@@ -259,7 +259,7 @@ function dataEsitle() {
     localStorage.setItem("islemler", JSON.stringify([]));
 
     var data = JSON.parse(localStorage.getItem("data"));
-    data[0]["count"]  == 0 ;
+    data[0]["count"]  = 0 ;
     localStorage.setItem("data",JSON.stringify(data));
 
 }
